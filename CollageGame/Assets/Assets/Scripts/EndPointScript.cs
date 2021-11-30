@@ -27,8 +27,12 @@ public class EndPointScript : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player") && PlayerControls.instance.reachedTarget == true)
         {
-            playerReachedEndpoint.Invoke();
-            winscreen.SetActive(true);
+            
+            if (Vector3.Distance(transform.position, other.transform.position) < 0.5f)
+            {
+                playerReachedEndpoint.Invoke();
+                winscreen.SetActive(true);
+            }
             
         }
     }
