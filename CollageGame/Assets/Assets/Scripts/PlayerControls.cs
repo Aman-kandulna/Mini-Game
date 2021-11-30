@@ -51,6 +51,7 @@ public class PlayerControls : MonoBehaviour
             return;
         }*/
 
+       
         if (target != null)
         {
 
@@ -58,7 +59,7 @@ public class PlayerControls : MonoBehaviour
             reachedTarget = false;
             wasMoving = true;
 
-            if (Vector3.Distance(transform.position, target.position) < 0.05f)
+            if (Vector3.Distance(transform.position, target.position) == 0f)
             {
                 WaypointPooler.instance.returnWaypointToPool(target);
                 target = null;
