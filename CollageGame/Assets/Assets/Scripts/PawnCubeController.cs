@@ -45,12 +45,12 @@ public class PawnCubeController : MonoBehaviour
     private void ModifyCollider()
     {
         this.GetComponent<BoxCollider>().enabled = false;
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+      //  this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
     private void ResetCollider()
     {
         this.GetComponent<BoxCollider>().enabled = true;
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+     //   this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
    
 }
