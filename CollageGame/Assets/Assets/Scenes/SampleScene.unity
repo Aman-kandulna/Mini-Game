@@ -135,9 +135,9 @@ GameObject:
   - component: {fileID: 54819641}
   - component: {fileID: 54819640}
   - component: {fileID: 54819639}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,9 +337,9 @@ GameObject:
   - component: {fileID: 218836692}
   - component: {fileID: 218836691}
   - component: {fileID: 218836690}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -582,7 +582,7 @@ MeshCollider:
   m_GameObject: {fileID: 390448450}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -916,9 +916,9 @@ GameObject:
   - component: {fileID: 825611405}
   - component: {fileID: 825611404}
   - component: {fileID: 825611403}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (5)
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1094,9 +1094,9 @@ GameObject:
   - component: {fileID: 1032663571}
   - component: {fileID: 1032663570}
   - component: {fileID: 1032663569}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1498,9 +1498,9 @@ GameObject:
   - component: {fileID: 1896121208}
   - component: {fileID: 1896121207}
   - component: {fileID: 1896121206}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (4)
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
