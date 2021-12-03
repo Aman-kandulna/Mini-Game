@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8260723216734920294}
   - component: {fileID: 8260723216734920293}
   - component: {fileID: 8260723216734920295}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PawnCube
   m_TagString: PawnCube
   m_Icon: {fileID: 0}
@@ -125,4 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266fd9594ee33e344a46fa47487119d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultColor: {r: 0, g: 1, b: 0, a: 1}
+  ChangedColor: {r: 0, g: 1, b: 1, a: 1}
   isAttachedToPlayerCube: 0

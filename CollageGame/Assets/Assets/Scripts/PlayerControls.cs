@@ -12,14 +12,14 @@ public class PlayerControls : MonoBehaviour
     private Vector3 dir;
     private bool isPawnCubeAttached = false;
     private Vector3 pawnCubeDirectionWithRespectToPlayerCube =Vector3.zero;
-    public  BoxCollider bx;
+    private BoxCollider bx;
     private GameObject Pawncube = null;
     private bool wasMoving = false;
     private bool isHitting;
     RaycastHit hitinfo;
     private float ColliderCorrectionValue = 0.1f;
     public static PlayerControls instance;
-    public LayerMask layermask;
+    private LayerMask layermask;
     public void Awake()
     {
         instance = this;
@@ -40,18 +40,11 @@ public class PlayerControls : MonoBehaviour
     {
         target = null;
         bx = transform.GetComponent<BoxCollider>();
+        layermask = LayerMask.GetMask("Walls") | LayerMask.GetMask("PawnCube");
     }
     private void Update()
     {
-        /*if (GameManager.hasReachedEndPoint)
-        {
-            WaypointPooler.instance.returnWaypointToPool(target);
-            target = null;
-            reachedTarget = true;
-            return;
-        }*/
-
-       
+      
         if (target != null)
         {
 
@@ -148,46 +141,19 @@ public class PlayerControls : MonoBehaviour
     {
 
         ColliderCorrectionValue = 0.1f;
-       // isHitting = Physics.BoxCast(bx.bounds.center, bx.bounds.size / 2.5f, dir, out hitinfo);
         isHitting = Physics.BoxCast(bx.bounds.center, bx.bounds.size / 2.5f, dir, out hitinfo,Quaternion.identity,50f,layermask,QueryTriggerInteraction.Ignore);
         if (isHitting)
         {
             if (useWallMotion)
             {
-                if (hitinfo.collider.gameObject.CompareTag("Wall"))
-                {
-                    Transform waypointT = WaypointPooler.instance.getWaypointFromPool();
-                    if(dir == pawnCubeDirectionWithRespectToPlayerCube || dir == -pawnCubeDirectionWithRespectToPlayerCube)
-                    {
-                        ColliderCorrectionValue = 0.2f;
-                    }
-                    waypointT.position = transform.position + (dir * hitinfo.distance)  + (-dir * ColliderCorrectionValue);
-                    target = waypointT.transform;
-                }
-                else if (hitinfo.collider.gameObject.CompareTag("PawnCube"))
-                {
-                   
+                
                     Transform waypointT = WaypointPooler.instance.getWaypointFromPool();
                     if (dir == pawnCubeDirectionWithRespectToPlayerCube || dir == -pawnCubeDirectionWithRespectToPlayerCube)
                     {
                         ColliderCorrectionValue = 0.2f;
                     }
-                    waypointT.position = transform.position + (dir * hitinfo.distance)  + (-dir * ColliderCorrectionValue);
-                    target = waypointT.transform;
-                    
-                   
-                }
-                /*else if (hitinfo.collider.gameObject.CompareTag("EndPoint"))
-                {
-
-                    Transform waypointT = WaypointPooler.instance.getWaypointFromPool();
-                    if (dir == pawnCubeDirectionWithRespectToPlayerCube || dir == -pawnCubeDirectionWithRespectToPlayerCube)
-                    {
-                        ColliderCorrectionValue = 0.2f;
-                    }
-                    waypointT.position = transform.position + (dir * hitinfo.distance)+ (-dir * ColliderCorrectionValue);
-                    target = waypointT.transform;
-                }*/
+                    waypointT.position = transform.position + (dir * hitinfo.distance) + (-dir * ColliderCorrectionValue);
+                    target = waypointT.transform; 
             }
         }
         else

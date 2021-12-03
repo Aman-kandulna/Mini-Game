@@ -13,6 +13,10 @@ public class EndPointScript : MonoBehaviour
     public void Awake()
     {
         instance = this;
+        if(winscreen == null)
+        {
+            Debug.Log("No winscreen detected");
+        }
     }
 
     public void Start()
@@ -31,6 +35,7 @@ public class EndPointScript : MonoBehaviour
             if (Vector3.Distance(transform.position, other.transform.position) < 0.5f)
             {
                 playerReachedEndpoint.Invoke();
+                if(winscreen!=null)
                 winscreen.SetActive(true);
             }
             

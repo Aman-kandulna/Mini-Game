@@ -6,7 +6,9 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject STARTPOINT;
+    [HideInInspector]
+    public GameObject StartPoint;
+    [HideInInspector]
     public GameObject player;
     public static bool hasReachedEndPoint = false;
     
@@ -17,6 +19,20 @@ public class GameManager : MonoBehaviour
     {
         EndPointScript.instance.playerReachedEndpoint.AddListener(OnReachEndPoint);
         
+    }
+    private void Awake()
+    {
+        StartPoint = GameObject.FindGameObjectWithTag("StartPoint");
+        if(StartPoint == null)
+        {
+            Debug.LogWarning("No StartPoint exists in the scene. Place a StartPoint in the scene");
+        }
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        if(player == null )
+        {
+            Debug.LogWarning("No player gameobject found in the scene. Place a player gameobject in the scene");
+        }
     }
     void Start()
     {
@@ -31,7 +47,8 @@ public class GameManager : MonoBehaviour
 
     private void ResetPlayerPosition()
     {
-        player.transform.position = STARTPOINT.transform.position;
+        if(StartPoint != null && player !=null)
+        player.transform.position = StartPoint.transform.position;
     }
     private void OnDisable()
     {
