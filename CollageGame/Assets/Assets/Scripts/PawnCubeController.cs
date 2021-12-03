@@ -12,17 +12,6 @@ public class PawnCubeController : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
     }
-    private void Update()  // optimise this
-    {
-        if (isAttachedToPlayerCube)
-        {
-            ChangeColor();
-        }
-        else
-        {
-            ResetColor();
-        }
-    }
     private void ChangeColor()
     {
         rend.material.color = ChangedColor;
@@ -35,22 +24,22 @@ public class PawnCubeController : MonoBehaviour
     {
         ModifyCollider();
         isAttachedToPlayerCube = true;
-        
+        ChangeColor();
+
     }
     public void DetachCube()
     {
         ResetCollider();
         isAttachedToPlayerCube = false;
+        ResetColor();
     }
     private void ModifyCollider()
     {
         this.GetComponent<BoxCollider>().enabled = false;
-      //  this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
     private void ResetCollider()
     {
         this.GetComponent<BoxCollider>().enabled = true;
-     //   this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
    
 }

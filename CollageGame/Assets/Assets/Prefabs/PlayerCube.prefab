@@ -99,7 +99,7 @@ MonoBehaviour:
   movespeed: 80
   reachedTarget: 1
   useWallMotion: 1
-  bx: {fileID: 252858089693687956}
+  hasReachedEndPoint: 0
 --- !u!65 &252858089693687956
 BoxCollider:
   m_ObjectHideFlags: 0
