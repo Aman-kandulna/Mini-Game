@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour
     private Vector3 dir;
     private bool isPawnCubeAttached = false;
     private Vector3 pawnCubeDirectionWithRespectToPlayerCube =Vector3.zero;
-    private BoxCollider bx;
+    public  BoxCollider bx;
     private GameObject Pawncube = null;
     private bool wasMoving = false;
     private bool isHitting;
@@ -20,6 +20,7 @@ public class PlayerControls : MonoBehaviour
     private float ColliderCorrectionValue = 0.1f;
     public static PlayerControls instance;
     private LayerMask layermask;
+    private Vector3 lastStaticPosition;
     public void Awake()
     {
         instance = this;
@@ -70,9 +71,15 @@ public class PlayerControls : MonoBehaviour
             wasMoving = false;
             TakeInput();
             SetWaypointInInputDirection();
+            lastStaticPosition = transform.position + bx.center;
 
         }
 
+
+    }
+    public void DrawGizmos()
+    {
+        
     }
 
     public void OnreachedEndpoint()
@@ -197,6 +204,19 @@ public class PlayerControls : MonoBehaviour
         Pawncube.GetComponent<PawnCubeController>().DetachCube();
         Pawncube = null;
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        if(target!=null)
+        {
+            Gizmos.DrawSphere(target.position, 0.25f);
+        }
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(lastStaticPosition + dir * hitinfo.distance, bx.size);
+        
+        Gizmos.DrawRay(transform.position, dir * (hitinfo.distance - Vector3.Distance(lastStaticPosition, transform.position)));
+
+    }
     private void ModifyCollider()
     {
         if(pawnCubeDirectionWithRespectToPlayerCube==transform.forward)
@@ -227,5 +247,6 @@ public class PlayerControls : MonoBehaviour
         bx.size = new Vector3(1, 1, 1);
         
     }
+    
 
 }
