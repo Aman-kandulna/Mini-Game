@@ -12,5 +12,6 @@ For Level Creation Note
 - set the [layer] of the wall as "Walls"
 - always drop prefabs in the hierarchy and not in the scene directly.
 - Always have  endpointprefab in the scene.
-- Always have  waypointprefab in the scene.
+- Always have  system in the scene.
+- StartPoint is not necessary.
 - Always have the camera's z axis and world's z axis aligned.
