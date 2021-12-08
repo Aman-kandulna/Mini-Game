@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de39342c822e8041a57604f846bc38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 80
+  movespeed: 20
   reachedTarget: 1
   useWallMotion: 1
   hasReachedEndPoint: 0

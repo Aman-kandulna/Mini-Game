@@ -14,4 +14,5 @@ For Level Creation Note
 - Always have  endpointprefab in the scene.
 - Always have  system in the scene.
 - StartPoint is not necessary.
+- Always have the y transform of the winpoint to  0.075.
 - Always have the camera's z axis and world's z axis aligned.
