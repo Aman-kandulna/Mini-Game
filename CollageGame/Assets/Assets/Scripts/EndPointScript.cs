@@ -5,8 +5,7 @@ using UnityEngine.Events;
 
 public class EndPointScript : MonoBehaviour
 {
-    [HideInInspector]
-    public UnityEvent playerReachedEndpoint;
+
     public static EndPointScript instance;
     public GameObject winscreen;
     
@@ -19,27 +18,24 @@ public class EndPointScript : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-        if(playerReachedEndpoint == null)
-        {
-            playerReachedEndpoint = new UnityEvent();
-        }
-       
-    }
+   
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.CompareTag("Player") && PlayerControls.instance.reachedTarget == true)
+        if(other.gameObject.CompareTag("Player") && GameManager.Instance.PlayerHasReachedTarget == true)
         {
-            
+  
             if (Vector3.Distance(transform.position, other.transform.position) < 0.5f)
             {
-                playerReachedEndpoint.Invoke();
+                TriggerPlayerReachedEndpointEvent();
                 if(winscreen!=null)
                 winscreen.SetActive(true);
             }
             
         }
+    }
+    public void TriggerPlayerReachedEndpointEvent()
+    {
+        GameManager.Instance.OnReachEndPoint();
     }
     
    
