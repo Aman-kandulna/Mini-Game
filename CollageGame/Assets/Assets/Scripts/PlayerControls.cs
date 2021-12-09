@@ -20,6 +20,7 @@ public class PlayerControls : MonoBehaviour
     public GameManager gameManager;
     private LayerMask layermask;
     private Vector3 lastStaticPosition;
+    private Vector3 lastTransform;
    
     public void Awake()
     {
@@ -48,6 +49,7 @@ public class PlayerControls : MonoBehaviour
     {
         target = null;
         lastStaticPosition = transform.position + bx.center;
+        lastTransform = transform.position;
         wasMoving = false;
         isPawnCubeAttached = false;
         pawnCubeDirectionWithRespectToPlayerCube = Vector3.zero;
@@ -73,24 +75,27 @@ public class PlayerControls : MonoBehaviour
         }
         if (gameManager.PlayerHasReachedTarget && !GameManager.hasReachedEndPoint)
         {
-
             if (!isPawnCubeAttached && wasMoving)
             {
                 DeterminePawnCubeLocation();
             }
             wasMoving = false;
             TakeInput();
+
+            if(dir != Vector3.zero)
             SetWaypointInInputDirection();
+
             CheckIfPlayerMoved();
             lastStaticPosition = transform.position + bx.center;
+            lastTransform = transform.position;
         }
 
     }
     public void CheckIfPlayerMoved()
     {
-        if(transform.position != lastStaticPosition)
+        if(transform.position != lastTransform)
         {
-            gameManager.IncreaseMoveCounter();
+            gameManager.IncreaseMoveCounter(); // increases moveCount on player movement
         }
     }
     
@@ -186,6 +191,7 @@ public class PlayerControls : MonoBehaviour
         Pawncube.transform.SetParent(this.gameObject.transform);
         Pawncube.GetComponent<PawnCubeController>().AttachCube();
         isPawnCubeAttached = true;
+        gameManager.IncreaseMoveCounter(); //increases moveCount on attaching cube
         ModifyCollider();
 
     }
@@ -196,6 +202,7 @@ public class PlayerControls : MonoBehaviour
             
             DetachPawnCube();
             DetachPlayerCube();
+           
         }
     }
     private void DetachPlayerCube()
@@ -203,6 +210,7 @@ public class PlayerControls : MonoBehaviour
         pawnCubeDirectionWithRespectToPlayerCube = Vector3.zero;
         isPawnCubeAttached = false;
         ResetCollider();
+        gameManager.IncreaseMoveCounter(); // increases moveCount on Detaching the player
     }
     private void DetachPawnCube()
     {
