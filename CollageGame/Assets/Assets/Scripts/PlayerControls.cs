@@ -9,11 +9,11 @@ public class PlayerControls : MonoBehaviour
     public float movespeed;
     public bool useWallMotion = true;
     private Vector3 dir;
-    private bool isPawnCubeAttached = false;
-    private Vector3 pawnCubeDirectionWithRespectToPlayerCube =Vector3.zero;
+    private bool isPawnCubeAttached;
+    private Vector3 pawnCubeDirectionWithRespectToPlayerCube;
     public  BoxCollider bx;
     private GameObject Pawncube = null;
-    private bool wasMoving = false;
+    private bool wasMoving;
     private bool isHitting;
     RaycastHit hitinfo;
     private float ColliderCorrectionValue = 0.1f;
@@ -39,9 +39,19 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
-        target = null;
         bx = transform.GetComponent<BoxCollider>();
         layermask = LayerMask.GetMask("Walls") | LayerMask.GetMask("PawnCube");
+        SetPlayerProperties();
+        
+    }
+    void SetPlayerProperties()
+    {
+        target = null;
+        lastStaticPosition = transform.position + bx.center;
+        wasMoving = false;
+        isPawnCubeAttached = false;
+        pawnCubeDirectionWithRespectToPlayerCube = Vector3.zero;
+        
     }
     private void Update()
     {
@@ -71,10 +81,17 @@ public class PlayerControls : MonoBehaviour
             wasMoving = false;
             TakeInput();
             SetWaypointInInputDirection();
+            CheckIfPlayerMoved();
             lastStaticPosition = transform.position + bx.center;
-
         }
 
+    }
+    public void CheckIfPlayerMoved()
+    {
+        if(transform.position != lastStaticPosition)
+        {
+            gameManager.IncreaseMoveCounter();
+        }
     }
     
     public void OnreachedEndpoint()
@@ -91,10 +108,7 @@ public class PlayerControls : MonoBehaviour
     }
     private void DeterminePawnCubeLocation()
     {
-        Ray rayFront = new Ray(transform.position, transform.forward );
-        Ray rayBack = new Ray(transform.position, -transform.forward );
-        Ray rayLeft = new Ray(transform.position, -transform.right );
-        Ray rayRight = new Ray(transform.position, transform.right );
+     
         Ray directedray = new Ray(transform.position, dir);
         
         RaycastHit hitinfo;

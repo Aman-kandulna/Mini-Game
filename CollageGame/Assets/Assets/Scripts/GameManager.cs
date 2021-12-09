@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public bool PlayerHasReachedTarget = true;
 
+    private float moveCounter;
+
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -32,7 +34,9 @@ public class GameManager : MonoBehaviour
         }
 
         ResetPlayerPosition();
-    }private void Awake()
+        moveCounter = 0;
+    }
+    private void Awake()
     {
         StartPoint = GameObject.FindGameObjectWithTag("StartPoint");
         if(StartPoint == null)
@@ -69,6 +73,11 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+    public void IncreaseMoveCounter()
+    {
+        ++moveCounter;
+        Debug.Log(moveCounter);
     }
    
 
