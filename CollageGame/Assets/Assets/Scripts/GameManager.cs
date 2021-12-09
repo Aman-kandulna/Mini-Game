@@ -11,16 +11,28 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameObject player;
     public static bool hasReachedEndPoint = false;
-    
-   
-   
 
-    private void OnEnable()
+    public UnityEvent playerReachedEndpoint;
+
+    public bool PlayerHasReachedTarget = true;
+
+    private static GameManager _instance;
+    public static GameManager Instance
     {
-        EndPointScript.instance.playerReachedEndpoint.AddListener(OnReachEndPoint);
-        
+        get
+        {
+            return _instance;
+        }
     }
-    private void Awake()
+    public void Start()
+    {
+        if (playerReachedEndpoint == null)
+        {
+            playerReachedEndpoint = new UnityEvent();
+        }
+
+        ResetPlayerPosition();
+    }private void Awake()
     {
         StartPoint = GameObject.FindGameObjectWithTag("StartPoint");
         if(StartPoint == null)
@@ -33,16 +45,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("No player gameobject found in the scene. Place a player gameobject in the scene");
         }
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
     }
-    void Start()
-    {
-        ResetPlayerPosition();
-        
-    }
-   
-    public void OnReachEndPoint()
+     public void OnReachEndPoint()
     {
         hasReachedEndPoint = true;
+        playerReachedEndpoint.Invoke();
     }
 
     private void ResetPlayerPosition()
@@ -50,13 +65,11 @@ public class GameManager : MonoBehaviour
         if(StartPoint != null && player !=null)
         player.transform.position = StartPoint.transform.position;
     }
-    private void OnDisable()
-    {
-        EndPointScript.instance.playerReachedEndpoint.RemoveListener(OnReachEndPoint);
-    }
+   
     public void Quit()
     {
         Application.Quit();
     }
+   
 
 }

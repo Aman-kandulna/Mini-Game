@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerControls : MonoBehaviour
 {
     private Transform target;
-    public float movespeed = 10f;
-    public bool reachedTarget = true;
+    public float movespeed;
     public bool useWallMotion = true;
-    public bool hasReachedEndPoint = false;
     private Vector3 dir;
     private bool isPawnCubeAttached = false;
     private Vector3 pawnCubeDirectionWithRespectToPlayerCube =Vector3.zero;
@@ -18,22 +17,23 @@ public class PlayerControls : MonoBehaviour
     private bool isHitting;
     RaycastHit hitinfo;
     private float ColliderCorrectionValue = 0.1f;
-    public static PlayerControls instance;
+    public GameManager gameManager;
     private LayerMask layermask;
     private Vector3 lastStaticPosition;
+   
     public void Awake()
     {
-        instance = this;
+        gameManager = GameManager.Instance;
     }
 
     private void OnEnable()
     {
-        EndPointScript.instance.playerReachedEndpoint.AddListener(OnreachedEndpoint);
+        gameManager.playerReachedEndpoint.AddListener(OnreachedEndpoint);
 
     }
     private void OnDisable()
     {
-        EndPointScript.instance.playerReachedEndpoint.RemoveListener(OnreachedEndpoint);
+        gameManager.playerReachedEndpoint.RemoveListener(OnreachedEndpoint);
     }
 
 
@@ -50,18 +50,18 @@ public class PlayerControls : MonoBehaviour
         {
 
             transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * movespeed);
-            reachedTarget = false;
+            gameManager.PlayerHasReachedTarget = false;
             wasMoving = true;
 
             if (Vector3.Distance(transform.position, target.position) == 0f)
             {
                 WaypointPooler.instance.returnWaypointToPool(target);
                 target = null;
-                reachedTarget = true;
+                gameManager.PlayerHasReachedTarget = true;
             }
 
         }
-        if (reachedTarget && !hasReachedEndPoint)
+        if (gameManager.PlayerHasReachedTarget && !GameManager.hasReachedEndPoint)
         {
 
             if (!isPawnCubeAttached && wasMoving)
@@ -75,25 +75,18 @@ public class PlayerControls : MonoBehaviour
 
         }
 
-
     }
-    public void DrawGizmos()
-    {
-        
-    }
-
+    
     public void OnreachedEndpoint()
     {
-        /*WaypointPooler.instance.returnWaypointToPool(target);
-        target = null;
-        reachedTarget = true;
-        hasReachedEndPoint = true;*/
+       
         if (isPawnCubeAttached)
         {
             DetachPawnCube();
             DetachPlayerCube();
         }
-        hasReachedEndPoint = true;
+        GameManager.hasReachedEndPoint = true;
+        gameManager.PlayerHasReachedTarget = true;
         Debug.Log("EndPoint Reached");
     }
     private void DeterminePawnCubeLocation()
