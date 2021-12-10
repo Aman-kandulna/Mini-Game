@@ -75,10 +75,18 @@ public class PlayerControls : MonoBehaviour
         }
         if (gameManager.PlayerHasReachedTarget && !GameManager.hasReachedEndPoint)
         {
+            if (isPawnCubeAttached && Input.GetKeyDown(KeyCode.E))
+            {
+
+                DetachPawnCube();
+                DetachPlayerCube();
+
+            }
             if (!isPawnCubeAttached && wasMoving)
             {
                 DeterminePawnCubeLocation();
             }
+         
             wasMoving = false;
             TakeInput();
 
@@ -88,6 +96,7 @@ public class PlayerControls : MonoBehaviour
             CheckIfPlayerMoved();
             lastStaticPosition = transform.position + bx.center;
             lastTransform = transform.position;
+
         }
 
     }
@@ -197,12 +206,16 @@ public class PlayerControls : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (isPawnCubeAttached )
+        Detach();
+    }
+    public void Detach()
+    {
+        if (isPawnCubeAttached)
         {
-            
+
             DetachPawnCube();
             DetachPlayerCube();
-           
+
         }
     }
     private void DetachPlayerCube()
