@@ -6,7 +6,11 @@ public class SceneManagement : MonoBehaviour
 {
   public void GoToScene()
     {
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void ExitApp()
     {
