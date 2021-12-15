@@ -1411,6 +1411,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6299355129305322449, guid: baee98f1eaef4f74da998038efa73809, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6299355129305322449, guid: baee98f1eaef4f74da998038efa73809, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 6299355129305322451, guid: baee98f1eaef4f74da998038efa73809, type: 3}
       propertyPath: m_Pivot.x
       value: 0

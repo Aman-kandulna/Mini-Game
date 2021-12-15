@@ -53,6 +53,8 @@ public class PlayerControls : MonoBehaviour
         wasMoving = false;
         isPawnCubeAttached = false;
         pawnCubeDirectionWithRespectToPlayerCube = Vector3.zero;
+        gameManager.PlayerHasReachedTarget = true;
+        GameManager.hasReachedEndPoint = false;
         
     }
     private void Update()

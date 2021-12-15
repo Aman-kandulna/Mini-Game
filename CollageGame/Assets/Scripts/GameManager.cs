@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameObject player;
     public static bool hasReachedEndPoint = false;
-
+    [HideInInspector]
     public UnityEvent playerReachedEndpoint;
 
     public bool PlayerHasReachedTarget = true;
