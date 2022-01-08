@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public UnityEvent playerReachedEndpoint;
 
     public bool PlayerHasReachedTarget = true;
-    public bool isPawnCubeAttached = false;
 
     private float moveCounter;
 
@@ -88,7 +87,7 @@ public class GameManager : MonoBehaviour
     public void IncreaseMoveCounter()
     {
         ++moveCounter;
-       // Debug.Log(moveCounter);
+        Debug.Log(moveCounter);
     }
    
 
